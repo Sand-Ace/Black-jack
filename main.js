@@ -43,3 +43,5 @@ let featuredPosts = [
   "Here's the code for my projects",
   "I've relaunched the website",
 ];
+
+console.log(featuredPosts[2]);
