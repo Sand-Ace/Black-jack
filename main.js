@@ -1,20 +1,47 @@
-let firstcard = 2;
-let secondcard = 13;
-let cards = [firstcard, secondcard];
-let sum = firstcard + secondcard;
+let player = {
+  name: "Per",
+  chips: 145,
+};
+
+let cards = [];
+let sum = 0;
 let message = "";
 let messageEl = document.getElementById("message-el");
 let cardsEl = document.getElementById("card-el");
 let sumEl = document.getElementById("sum-el");
-let isAlive = true;
+let isAlive = false;
 let hasBlackJack = false;
 
+let playerEl = document.getElementById("player-el");
+playerEl.textContent = player.name + ": $ " + player.chips;
+
+function getRandomCard() {
+  let randomnumber = Math.floor(Math.random() * 13) + 1;
+  if (randomnumber > 10) {
+    return 10;
+  } else if (randomnumber === 1) {
+    return 11;
+  } else {
+    return randomnumber;
+  }
+}
+
 function startGame() {
+  isAlive = true;
+  let firstCard = getRandomCard();
+  let secondCard = getRandomCard();
+  cards = [firstCard, secondCard];
+  sum = firstCard + secondCard;
+
   renderGame();
 }
 
 function renderGame() {
-  cardsEl.textContent = "Cards: " + cards[0] + " " + cards[1];
+  cardsEl.textContent = "Cards: ";
+  for (let i = 0; i < cards.length; i++) {
+    cardsEl.textContent += cards[i] + " ";
+  }
+
   sumEl.textContent = "Sum: " + sum;
   //   console.log("Button is working");
 
@@ -31,17 +58,10 @@ function renderGame() {
 }
 
 function newCard() {
-  let newCard = 7;
-  sum += newCard;
-  cards.push(newCard);
-  renderGame();
+  if (isAlive === true && hasBlackJack === false) {
+    let newCard = getRandomCard();
+    sum += newCard;
+    cards.push(newCard);
+    renderGame();
+  }
 }
-
-// array practice -----
-let featuredPosts = [
-  "Check out my new Netflix clone",
-  "Here's the code for my projects",
-  "I've relaunched the website",
-];
-
-console.log(featuredPosts[2]);
